@@ -1,0 +1,31 @@
+{% set page = {
+  title: 'Where are you now?',
+  layout: {
+    back: true
+  },
+  question: {
+    callout: {
+      html: [
+        '<p>We need to know where you are so we can find services to help.</p><p>We can only show services or give advice if you are in England.</p>'
+      ],
+      classes: "app-callout--info",
+      position: 'bottom'
+    }
+  },
+  redirectTo: 'age'
+} %}
+
+{% extends "111/layouts/patterns/question.html" %}
+
+{% block question_body %}
+
+  {{ input({
+      name: "location[current]",
+      label: {
+        text: "Postcode"
+      },
+      classes: "nhsuk-input--width-10"
+    })
+  }}
+
+{% endblock question_body %}

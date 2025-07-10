@@ -122,7 +122,7 @@
         {% block back_link %}
         {{ backLink({
           href: page.layout.back.href | d(_sublayout.layout.back.href | d('javascript:history.back();')),
-          text: page.layout.back.text | d(_sublayout.layout.back.text | d('Go back'))
+          text: page.layout.back.text | d(_sublayout.layout.back.text | d('Back'))
         }) }}
         {% endblock back_link %}
       {% endif %}

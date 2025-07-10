@@ -1,31 +1,29 @@
-{% set layout = {
-  file: 'layouts/base'
-} %}
-
-{% extends layout.file %}
+{% extends layouts.base %}
 
 {% block content_primary %}
 
-  <form method="post">
+  <form method="post" {%- if page.postTo %} action="{{ page.postTo }}"{% endif %}>
 
-    <h1 class="nhsuk-heading-l">
-      {{ question.text | d(page.title | d('Question text is required for this template')) }}
-    </h1>
+    {% block question_header %}
+      <h1 class="nhsuk-heading-l">
+        {{ page.question.text | d(page.title | d('Question text is required for this template')) | noOrphans | safe }}
+      </h1>
+    {% endblock question_header %}
 
     {% set callout_content %}
-    {% if question.callout and not question.callout.hide %}
-      {% call callout({ classes: 'app-callout--info' } | merge(question.callout)) %}
-      {% if question.callout.text %}
-        <p>{{ question.callout.text }}</p>
-      {% elseif question.callout.html %}
-        {{ question.callout.html | d('Nothing passed to callout') | safe }}
+    {% if page.question.callout and not page.question.callout.hide %}
+      {% call callout({ classes: page.question.callout.classes | default(false) } | merge(page.question.callout)) %}
+      {% if page.question.callout.text %}
+        <p>{{ page.question.callout.text }}</p>
+      {% elseif page.question.callout.html %}
+        {{ page.question.callout.html | d('Nothing passed to callout') | safe }}
       {% endif %}
       {% endcall %}
     {% endif %}
     {% endset %}
 
-    {% if calloutHTML or question.callout %}
-      {% if not question.callout.position or question.callout.position == 'top' %}
+    {% if calloutHTML or page.question.callout %}
+      {% if not page.question.callout.position or page.question.callout.position == 'top' %}
         {{ calloutHTML | d(callout_content) | safe }}
       {% endif %}
     {% endif %}
@@ -34,8 +32,8 @@
 
     {% block question_body %}{% endblock question_body %}
 
-    {% if calloutHTML or question.callout %}
-      {% if question.callout.position == 'bottom' %}
+    {% if calloutHTML or page.question.callout %}
+      {% if page.question.callout.position == 'bottom' %}
         {{ calloutHTML | d(callout_content) | safe }}
       {% endif %}
     {% endif %}
@@ -45,10 +43,14 @@
     {% block question_actions %}
       {{
         button({
-          text: 'Next'
-        } | merge(question.actions.button | d({})))
+          text: 'Continue'
+        } | merge(page.question.actions.button | d({})))
       }}
     {% endblock %}
+
+    {% if page.redirectTo %}
+      <input type="hidden" name="redirectTo" value="{{ page.redirectTo }}">
+    {% endif %}
 
   </form>
 
