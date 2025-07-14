@@ -1,0 +1,18 @@
+{% set page = {
+  title: 'Get help for your symptoms'
+} %}
+
+{% extends page.layout.file | d(layouts.base) %}
+
+{% block content_primary %}
+
+  {% call callout({
+    classes: 'app-callout--attention'
+  }) %}
+    <h2 class="nhsuk-heading-l">
+      Call 111
+    </h2>
+    <p>To get help for a child less than 1 year old, please call 111 from your telephone.</p>
+  {% endcall %}
+
+{% endblock content_primary %}

@@ -25,7 +25,7 @@ router.post('/where-are-you-now', function(req, res){
 router.post('/age-pilot', function(req, res){
   var age = req.session.data.age;
   if (age <= 1) {
-    return res.redirect('age-clarify')
+    return res.redirect('under-1-notice')
   } else {
     return res.redirect('sex')
   }
