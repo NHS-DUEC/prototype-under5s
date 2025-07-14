@@ -9,14 +9,14 @@ router.post('/age', function(req, res, next){
     return res.redirect('sex');
   } else {
     console.log('older than 5')
-    return res.redirect('sex');
+    return res.redirect('check-symptoms-under-5');
   }
 });
 
 router.post('/where-are-you-now', function(req, res){
   var currentLocationPostcode = req.session.data.location.current;
   if (utils.containsSubstring(currentLocationPostcode, 'LS14')) {
-    return res.redirect('age-pilot')
+    return res.redirect('age')
   } else {
     return res.redirect('age')
   }
