@@ -1,0 +1,25 @@
+{% set page = {
+  title: 'What is your age?',
+  layout: {
+    back: true
+  },
+  question: {
+    callout: {
+      text: 'If you are doing this for someone else, enter their age.',
+      classes: 'app-callout--info',
+      position: 'bottom'
+    }
+  }
+} %}
+
+{% extends "111/layouts/patterns/question.html" %}
+
+{% block question_body %}
+
+  {{ input({
+      name: "age",
+      classes: "nhsuk-input--width-5"
+    })
+  }}
+
+{% endblock question_body %}

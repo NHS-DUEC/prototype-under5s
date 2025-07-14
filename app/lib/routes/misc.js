@@ -78,20 +78,14 @@ router.get(/(.*)/, (req, res, next) => {
  */
 router.post(/(.*)/, (req, res, next) => {
   let { redirectTo } = req.body;
-  if (redirectTo) {
-    return res.redirect(redirectTo)
-  }
+  req.redirectTo = redirectTo ? redirectTo : false;
   next();
+}, (req, res) => {
+    return res.redirect(req.redirectTo)
 });
 
 router.use('/.well-known/appspecific/com.chrome.devtools.json', (req, res) => {
   res.status(204).end();
-});
-
-router.get('/reset-session', (req, res) => {
-	req.session.data = {};
-	Object.assign(req.session.data, sessionDataDefaults);
-	res.redirect('/');
 });
 
 module.exports = router;

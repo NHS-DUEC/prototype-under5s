@@ -24,7 +24,6 @@ const config = require('./app/config');
 const locals = require('./app/locals');
 const routes = require('./app/routes');
 const utils = require('./lib/utils');
-const appUtils = require('./app/lib/utils');
 
 const prototypeAdminRoutes = require('./lib/middleware/prototype-admin-routes');
 const exampleTemplatesRoutes = require('./lib/example_templates_routes');
@@ -73,7 +72,6 @@ nunjucksAppEnv.addGlobal('version', packageInfo.version);
 
 // Add Nunjucks filters
 utils.addNunjucksFilters(nunjucksAppEnv);
-appUtils.addExtensions(nunjucksAppEnv);
 
 // Session uses service name to avoid clashes with other prototypes
 const sessionName = `nhsuk-prototype-kit-${(Buffer.from(config.serviceName, 'utf8')).toString('hex')}`;
@@ -232,5 +230,18 @@ if (
   console.warn('Press `Ctrl+C` and then run `npm run watch` instead');
   /* eslint-enable no-console */
 }
+
+// ########################################################
+// 111 online prototype kit additions
+// ########################################################
+
+const appUtils = require('./app/lib/utils');
+const appRoutes = require('./app/lib/routes/index');
+
+// use additonal 'app' routing file for 111 online prototype kit
+app.use('/', appRoutes);
+
+// add additonal utilities to the kit for 111 online prototypes
+appUtils.addExtensions(nunjucksAppEnv);
 
 module.exports = app;

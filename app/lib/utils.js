@@ -7,3 +7,7 @@ exports.addExtensions = function(env) {
   env.addExtension('EmbedExtension', new EmbedExtension());
   env.addExtension('RepeatExtension', new RepeatExtension());
 }
+
+exports.containsSubstring = function containsSubstring(haystack, needle) {
+  return haystack.toLowerCase().includes(needle.toLowerCase());
+}
