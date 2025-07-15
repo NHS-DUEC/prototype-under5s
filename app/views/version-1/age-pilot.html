@@ -5,7 +5,7 @@
   },
   question: {
     callout: {
-      text: 'If you are doing this for someone else, choose their age.',
+      text: 'If you are doing this for someone else enter their age. If they are under 1 call 111.
       classes: 'app-callout--info',
       position: 'top'
     }
@@ -14,47 +14,3 @@
 
 {% extends "111/layouts/patterns/question.html" %}
 
-{% block question_body %}
-
-  {{ radios({
-    name: "child[type]",
-    items: [
-      {
-        value: "neonate",
-        text: "New born baby",
-        hint: {
-          text: 'Less than 1 hour old'
-        }
-      },
-      {
-        value: "infant",
-        text: "Infant",
-        hint: {
-          text: "1 hour to 12 months old"
-        }
-      },
-      {
-        value: "toddler",
-        text: "Toddler",
-        hint: {
-          text: "13 months to 4 years 11 months old"
-        }
-      },
-      {
-        value: "child",
-        text: "Child",
-        hint: {
-          text: "5 years to 14 years 11 months"
-        }
-      },
-      {
-        value: "adult",
-        text: "Adult",
-        hint: {
-          text: "16 years or older"
-        }
-      }
-    ]
-  }) }}
-
-{% endblock question_body %}
